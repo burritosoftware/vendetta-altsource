@@ -48,20 +48,22 @@ jobs:
         with:
           file_path: cache/lastGenerated.json
 
-      - name: Create pages directory
+      - name: Create redirect file and copy apps.json
         if: steps.check_file.outputs.files_exists == 'true'
         run: |
           mkdir pages
           cp out/apps.json pages/
           cat > pages/index.html <<EOL
-          <!doctype html>
+          <!DOCTYPE html>
           <html>
-            <head>
-              <title>GitHub Pages deployed!</title>
-            </head>
-            <body>
-              <p>GitHub Pages with <strong>${{ github.sha }}</strong> commit ID has been deployed through <a href="https://github.com/marketplace/actions/github-pages">GitHub Pages action</a> successfully.</p>
-            </body>
+              <head>
+                  <meta charset="UTF-8" />
+                  <meta http-equiv="refresh" content="0;url='altstore://source?url=https://vendetta.burrito.software/apps.json'" />
+                  <title>Redirecting to altstore://source?url=https://vendetta.burrito.software/apps.json</title>
+              </head>
+              <body>
+                  Redirecting to <a href="altstore://source?url=https://vendetta.burrito.software/apps.json">altstore://source?url=https://vendetta.burrito.software/apps.json</a>.
+              </body>
           </html>
           EOL
 
@@ -71,5 +73,6 @@ jobs:
         with:
           target_branch: pages
           build_dir: pages
+          commit_message: "Update source to ${{ steps.json_properties.outputs.version }} (${{ steps.json_properties.outputs.buildVersion }})"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
