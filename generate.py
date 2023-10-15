@@ -15,6 +15,7 @@ APP_KEY = os.getenv("APP_KEY")
 BINARY_KEY = os.getenv("BINARY_KEY")
 EXTRACT_TO = os.getenv("EXTRACT_TO")
 OUTPUT_TO = os.getenv("OUTPUT_TO")
+CACHE_TO = os.getenv("CACHE_TO")
 
 # Create EXTRACT_TO folder
 if not os.path.exists(EXTRACT_TO):
@@ -24,12 +25,27 @@ if not os.path.exists(EXTRACT_TO):
 if not os.path.exists(OUTPUT_TO):
   os.makedirs(OUTPUT_TO)
 
+# Create CACHE_TO folder
+if not os.path.exists(CACHE_TO):
+  os.makedirs(CACHE_TO)
+
 response = requests.get(BASE_URL)
 soup = BeautifulSoup(response.content, 'html.parser')
 
 # Get the latest build version from the file list
 trs = soup.find('body').find('main').find('table').find('tbody').find_all('tr')
 latestPath = trs[-1].find('td', {'class': 'name'}).find('a').text
+
+# If lastGenerated.txt does not exist, or if the contents of lastGenerated.txt is not the same as the latestPath, then continue
+if not os.path.exists(f'{CACHE_TO}/lastGenerated.txt') or open(f'{CACHE_TO}/lastGenerated.txt', 'r').read() != latestPath:
+  # Create a file called lastGenerated.txt with the latestPath as the contents
+  with open(f'{CACHE_TO}/lastGenerated.txt', 'w') as f:
+    f.write(latestPath)
+    print(f'Starting to generate source for build {latestPath[:-1]}...')
+else:
+  # If lastGenerated.txt exists and the contents are the same as the latestPath, then exit the script
+  print('No new builds found. Exiting.')
+  exit()
 
 # AltStore source construction
 source = {}
@@ -118,6 +134,7 @@ source['apps'].append(vendettaApp)
 # Output source variable as json to a file named apps.json
 with open(f'{OUTPUT_TO}/apps.json', 'w') as f:
   f.write(json.dumps(source, indent=2))
+  print('Source generated.')
 
 # Delete the EXTRACT_TO folder and its contents
 shutil.rmtree(EXTRACT_TO)

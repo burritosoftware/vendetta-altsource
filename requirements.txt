@@ -1,4 +1,3 @@
 python-dotenv
 BeautifulSoup4
 requests
-binwalk @ git+https://github.com/ReFirmLabs/binwalk.git
