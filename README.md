@@ -1,8 +1,7 @@
 # AltStore Source for Vendetta
 ![Icons](https://skillicons.dev/icons?i=py,githubactions,github)
 
-[![Last updated](https://img.shields.io/github/last-commit/burritosoftware/vendetta-altsource/pages?logo=github&label=last%20updated)](https://github.com/burritosoftware/vendetta-altsource/commits/pages/)
-![Update check/source generation)](https://img.shields.io/github/actions/workflow/status/burritosoftware/vendetta-altsource/create.yml?logo=github&label=update%20check%2Fsource%20generation)
+[![wakatime](https://wakatime.com/badge/github/burritosoftware/vendetta-altsource.svg)](https://wakatime.com/badge/github/burritosoftware/vendetta-altsource) [![Last updated](https://img.shields.io/github/last-commit/burritosoftware/vendetta-altsource/pages?logo=github&label=last%20updated)](https://github.com/burritosoftware/vendetta-altsource/commits/pages/) ![Update check/source generation)](https://img.shields.io/github/actions/workflow/status/burritosoftware/vendetta-altsource/create.yml?logo=github&label=update%20check%2Fsource%20generation)
 
 ---
 
