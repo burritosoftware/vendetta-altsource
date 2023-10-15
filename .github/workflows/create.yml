@@ -48,7 +48,7 @@ jobs:
         with:
           file_path: cache/lastGenerated.json
 
-      - name: Create redirect file and copy apps.json
+      - name: Create redirect file, copy apps.json, set CNAME
         if: steps.check_file.outputs.files_exists == 'true'
         run: |
           mkdir pages
@@ -65,6 +65,9 @@ jobs:
                   Redirecting to <a href="altstore://source?url=https://vendetta.burrito.software/apps.json">altstore://source?url=https://vendetta.burrito.software/apps.json</a>.
               </body>
           </html>
+          EOL
+          cat > pages/CNAME <<EOL
+          vendetta.burrito.software
           EOL
 
       - name: Deploy to GitHub Pages
