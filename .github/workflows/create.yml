@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  pages: write
 
 jobs:
   create-source:
@@ -41,17 +41,33 @@ jobs:
         with:
           files: 'out/apps.json'
       
-      - name: Get Properties From JSON File
+      - name: Get the version and build number
         id: json_properties
         if: steps.check_file.outputs.exists == 'true'
         uses: zoexx/github-action-json-file-properties@1.0.4
         with:
           file_path: cache/lastGenerated.json
 
-      - name: Create source release
+      - name: Create pages directory
         if: steps.check_file.outputs.exists == 'true'
-        uses: ncipollo/release-action@v1.13.0
+        run: |
+          mkdir pages
+          cp out/apps.json pages/
+          cat > pages/index.html <<EOL
+          <!doctype html>
+          <html>
+            <head>
+              <title>GitHub Pages deployed!</title>
+            </head>
+            <body>
+              <p>GitHub Pages with <strong>${{ github.sha }}</strong> commit ID has been deployed through <a href="https://github.com/marketplace/actions/github-pages">GitHub Pages action</a> successfully.</p>
+            </body>
+          </html>
+          EOL
+
+      - name: Deploy to GitHub Pages
+        if: steps.check_file.outputs.exists == 'true'
+        uses: crazy-max/ghaction-github-pages@v4.0.0
         with:
-          artifacts: out/apps.json
-          name: "${{steps.json_properties.outputs.version}} (${{steps.json_properties.outputs.buildVersion}})"
-          tag: ${{steps.json_properties.outputs.buildVersion}}
+          target_branch: pages
+          build_dir: pages
