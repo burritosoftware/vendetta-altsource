@@ -48,9 +48,9 @@ else:
 source = {}
 source['name'] = 'Vendetta'
 source['identifier'] = 'tf.k6.discord'
-source['subtitle'] = 'A mod for Discord\'s mobile apps.'
+source['subtitle'] = 'A mod for Discord\'s mobile apps. This source is auto-generated with Python and GitHub Actions.'
 source['iconURL'] = 'https://taidums.are-really.cool/pTgBemx.png'
-source['website'] = 'https://github.com/vendetta-mod/Vendetta'
+source['website'] = 'https://github.com/burritosoftware/vendetta-altsource'
 source['tintColor'] = '#3ab8ba'
 source['apps'] = []
 source['news'] = []
@@ -60,7 +60,7 @@ vendettaApp = {
   "bundleIdentifier": "com.hammerandchisel.discord",
   "developerName": "Vendetta Contributors",
   "subtitle": "A mod for Discord's mobile apps.",
-  "localizedDescription": "A platform-agnostic mod for Discord's mobile apps. This source is auto-generated with IPAs sourced from https://discord.k6.tf/ios.",
+  "localizedDescription": "A platform-agnostic mod for Discord's mobile apps. IPAs are sourced from https://discord.k6.tf/ios.",
   "iconURL": "https://taidums.are-really.cool/6gu8GwW.png",
   "tintColor": "#3ab8ba"
 }
