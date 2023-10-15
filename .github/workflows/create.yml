@@ -1,0 +1,13 @@
+on:
+  workflow_dispatch:
+jobs:
+  create-source:
+    name: Create Vendetta AltStore source
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Python
+        uses: actions/setup-python@v4.7.1
+        with:
+          cache: pip
+      - name: Install dependencies
+        uses: py-actions/py-dependency-install@v4.0.0
