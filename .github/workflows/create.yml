@@ -71,3 +71,5 @@ jobs:
         with:
           target_branch: pages
           build_dir: pages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
