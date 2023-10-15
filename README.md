@@ -1,6 +1,9 @@
 # AltStore Source for Vendetta
 ![Icons](https://skillicons.dev/icons?i=py,githubactions,github)
 
+[![Last updated](https://img.shields.io/github/last-commit/burritosoftware/vendetta-altsource/pages?logo=github&label=last%20updated)](https://github.com/burritosoftware/vendetta-altsource/commits/pages/)
+![Update check/source generation)](https://img.shields.io/github/actions/workflow/status/burritosoftware/vendetta-altsource/create.yml?logo=github&label=update%20check%2Fsource%20generation)
+
 ---
 
 ## How this works
@@ -10,7 +13,7 @@ If one exists, the AltStore source in the `pages` branch will be updated to the 
 ## Installation
 Tap below to open AltStore and add this source. Not working? Add `https://vendetta.burrito.software/apps.json` to AltStore.
 
-[![Add to AltStore](https://taidums.are-really.cool/9nj3vv5.png | width=250)](https://vendetta.burrito.software)
+[![Add to AltStore](https://taidums.are-really.cool/9nj3vv5.png)](https://vendetta.burrito.software)
 
 ## Manual Setup
 This code can be run without GitHub actions.  
