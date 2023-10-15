@@ -48,3 +48,4 @@ jobs:
         with:
           artifacts: out/apps.json
           name: "${{steps.json_properties.outputs.version}} (${{steps.json_properties.outputs.buildVersion}})"
+          tag: ${{steps.json_properties.outputs.buildVersion}}
