@@ -40,7 +40,7 @@ jobs:
         if: steps.check_file.outputs.exists == 'true'
         uses: zoexx/github-action-json-file-properties@1.0.4
         with:
-          file: cache/lastGenerated.json
+          file_path: cache/lastGenerated.json
 
       - name: Create source release
         if: steps.check_file.outputs.exists == 'true'
