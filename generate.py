@@ -61,7 +61,7 @@ vendettaApp = {
   "developerName": "Vendetta Contributors",
   "subtitle": "A mod for Discord's mobile apps.",
   "localizedDescription": "A platform-agnostic mod for Discord's mobile apps. These IPAs are sourced from https://discord.k6.tf/ios.",
-  "iconURL": "",
+  "iconURL": "https://taidums.are-really.cool/5knt7F7.png",
   "tintColor": "#3ab8ba"
 }
 vendettaApp['versions'] = []
