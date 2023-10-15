@@ -49,7 +49,7 @@ source = {}
 source['name'] = 'Vendetta'
 source['identifier'] = 'tf.k6.discord'
 source['subtitle'] = 'A mod for Discord\'s mobile apps.'
-source['iconURL'] = 'https://avatars.githubusercontent.com/u/112445065?s=200&v=4'
+source['iconURL'] = 'https://taidums.are-really.cool/pTgBemx.png'
 source['website'] = 'https://github.com/vendetta-mod/Vendetta'
 source['tintColor'] = '#3ab8ba'
 source['apps'] = []
@@ -61,7 +61,7 @@ vendettaApp = {
   "developerName": "Vendetta Contributors",
   "subtitle": "A mod for Discord's mobile apps.",
   "localizedDescription": "A platform-agnostic mod for Discord's mobile apps. These IPAs are sourced from https://discord.k6.tf/ios.",
-  "iconURL": "https://taidums.are-really.cool/5knt7F7.png",
+  "iconURL": "https://taidums.are-really.cool/6gu8GwW.png",
   "tintColor": "#3ab8ba"
 }
 vendettaApp['versions'] = []
