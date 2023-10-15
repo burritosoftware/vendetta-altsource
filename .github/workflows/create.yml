@@ -1,13 +1,50 @@
+name: Create AltStore source
 on:
   workflow_dispatch:
 jobs:
   create-source:
-    name: Create Vendetta AltStore source
+    name: Check for updates and generate source
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4.1.0
+
       - name: Setup Python
         uses: actions/setup-python@v4.7.1
         with:
           cache: pip
+
       - name: Install dependencies
         uses: py-actions/py-dependency-install@v4.0.0
+
+      - name: Copy .env-example to .env
+        run: cp .env-example .env
+      
+      - name: Cache lastGenerated.json
+        uses: actions/cache@v3.3.2
+        with:
+          path: cache/lastGenerated.json
+          key: lastGenerated
+  
+      - name: Run generate.py
+        run: python3 generate.py
+      
+      - name: Check if new source was generated
+        id: check_file
+        uses: thebinaryfelix/check-file-existence-action@1.0.0
+        with:
+          files: "out/apps.json"
+      
+      - name: Get Properties From JSON File
+        id: json_properties
+        if: steps.check_file.outputs.exists == 'true'
+        uses: zoexx/github-action-json-file-properties@1.0.4
+        with:
+          file: cache/lastGenerated.json
+
+      - name: Create source release
+        if: steps.check_file.outputs.exists == 'true'
+        uses: ncipollo/release-action@v1.13.0
+        with:
+          artifacts: out/apps.json
+          name: "${{steps.json_properties.outputs.version}} (${{steps.json_properties.outputs.buildVersion}})"

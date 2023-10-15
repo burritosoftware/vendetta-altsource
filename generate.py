@@ -36,14 +36,11 @@ soup = BeautifulSoup(response.content, 'html.parser')
 trs = soup.find('body').find('main').find('table').find('tbody').find_all('tr')
 latestPath = trs[-1].find('td', {'class': 'name'}).find('a').text
 
-# If lastGenerated.txt does not exist, or if the contents of lastGenerated.txt is not the same as the latestPath, then continue
-if not os.path.exists(f'{CACHE_TO}/lastGenerated.txt') or open(f'{CACHE_TO}/lastGenerated.txt', 'r').read() != latestPath:
-  # Create a file called lastGenerated.txt with the latestPath as the contents
-  with open(f'{CACHE_TO}/lastGenerated.txt', 'w') as f:
-    f.write(latestPath)
+# If lastGenerated.json does not exist, or if key "buildVersion" is not the same as latestPath[:-1], then continue
+if not os.path.exists(f'{CACHE_TO}/lastGenerated.json') or json.load(open(f'{CACHE_TO}/lastGenerated.json', 'r'))['buildVersion'] != latestPath[:-1]:
     print(f'Starting to generate source for build {latestPath[:-1]}...')
 else:
-  # If lastGenerated.txt exists and the contents are the same as the latestPath, then exit the script
+  # If lastGenerated.json exists and key "buildVersion" is the same as latestPath[:-1], then exit
   print('No new builds found. Exiting.')
   exit()
 
@@ -135,6 +132,15 @@ source['apps'].append(vendettaApp)
 with open(f'{OUTPUT_TO}/apps.json', 'w') as f:
   f.write(json.dumps(source, indent=2))
   print('Source generated.')
+
+# Generate lastGenerated.json and save it to CACHE_TO/lastGenerated.json
+lastGenerated = {
+  "version": plist['CFBundleShortVersionString'],
+  "buildVersion": plist['CFBundleVersion'],
+}
+
+with open(f'{CACHE_TO}/lastGenerated.json', 'w') as f:
+  f.write(json.dumps(lastGenerated, indent=2))
 
 # Delete the EXTRACT_TO folder and its contents
 shutil.rmtree(EXTRACT_TO)
