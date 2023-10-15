@@ -1,6 +1,8 @@
 name: Create AltStore source
 on:
   workflow_dispatch:
+permissions:
+  contents: write
 jobs:
   create-source:
     name: Check for updates and generate source
