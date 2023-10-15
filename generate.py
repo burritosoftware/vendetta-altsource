@@ -60,7 +60,7 @@ vendettaApp = {
   "bundleIdentifier": "com.hammerandchisel.discord",
   "developerName": "Vendetta Contributors",
   "subtitle": "A mod for Discord's mobile apps.",
-  "localizedDescription": "A platform-agnostic mod for Discord's mobile apps. These IPAs are sourced from https://discord.k6.tf/ios.",
+  "localizedDescription": "A platform-agnostic mod for Discord's mobile apps. This source is auto-generated with IPAs sourced from https://discord.k6.tf/ios.",
   "iconURL": "https://taidums.are-really.cool/6gu8GwW.png",
   "tintColor": "#3ab8ba"
 }
@@ -74,6 +74,9 @@ with open(f'{EXTRACT_TO}/{APP_KEY}', 'wb') as f:
 with zipfile.ZipFile(f'{EXTRACT_TO}/{APP_KEY}', 'r') as zip_ref:
   zip_ref.extract(f'Payload/{BINARY_KEY}.app/Info.plist', path=EXTRACT_TO)
   zip_ref.extract(f'Payload/{BINARY_KEY}.app/{BINARY_KEY}', path=EXTRACT_TO)
+
+# Get the number of bytes of the downloaded file at f'{EXTRACT_TO}/{APP_KEY}'
+appSize = os.path.getsize(f'{EXTRACT_TO}/{APP_KEY}')
 
 ##
 # Creating and adding the latest version
@@ -95,6 +98,7 @@ version = {
   "date": lastModified,
   "localizedDescription": f"{plist['CFBundleShortVersionString']} ({plist['CFBundleVersion']})",
   "downloadURL": downloadURL,
+  "size": appSize,
   "minOSVersion": plist['MinimumOSVersion']
 }
 vendettaApp['versions'].append(version)
