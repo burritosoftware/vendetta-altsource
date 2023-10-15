@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  pages: write
+  contents: write
 
 jobs:
   create-source:
