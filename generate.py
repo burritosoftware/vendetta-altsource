@@ -125,7 +125,7 @@ for key, value in plist.items():
       permissionName = key[2:-16]
       privacyObject = {
         "name": permissionName,
-        "description": value
+        "usageDescription": value
       }
       vendettaApp['appPermissions']['privacy'].append(privacyObject)
 
