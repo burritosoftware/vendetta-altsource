@@ -60,7 +60,7 @@ vendettaApp = {
   "bundleIdentifier": "com.hammerandchisel.discord",
   "developerName": "Vendetta Contributors",
   "subtitle": "A mod for Discord's mobile apps.",
-  "localizedDescription": "A platform-agnostic mod for Discord's mobile apps. IPAs are sourced from https://discord.k6.tf/ios.",
+  "localizedDescription": "A platform-agnostic mod for Discord's mobile apps. IPAs are sourced from https://patched.vendetta.rocks/ios.",
   "iconURL": "https://taidums.are-really.cool/6gu8GwW.png",
   "tintColor": "#3ab8ba"
 }
