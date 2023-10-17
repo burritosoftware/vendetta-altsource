@@ -6,7 +6,7 @@
 ---
 
 ## How this works
-This repository checks every hour for new builds of Vendetta at https://discord.k6.tf/ios.  
+This repository checks every hour for new builds of Vendetta at https://patched.vendetta.rocks/ios.  
 If one exists, the AltStore source in the `pages` branch will be updated to the latest version.
 
 ## Installation
