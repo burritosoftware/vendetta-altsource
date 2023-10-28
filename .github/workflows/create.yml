@@ -30,7 +30,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: cache/lastGenerated.json
-          key: lastGenerated
+          key: lastGenerated-${{ hashFiles('cache/lastGenerated.json') }}
   
       - name: Run generate.py
         run: python3 generate.py
