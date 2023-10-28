@@ -26,11 +26,15 @@ jobs:
       - name: Copy .env-example to .env
         run: cp .env-example .env
       
-      - name: Cache lastGenerated.json
-        uses: actions/cache@v3
+      - name: Restore lastGenerated.json
+        id: restore_last_generated
+        uses: actions/cache/restore@v3
         with:
           path: cache/lastGenerated.json
-          key: lastGenerated-${{ hashFiles('cache/lastGenerated.json') }}
+          key: lastGenerated
+          restore-keys: |
+            lastGenerated-
+            
   
       - name: Run generate.py
         run: python3 generate.py
@@ -40,6 +44,13 @@ jobs:
         uses: andstor/file-existence-action@v2.0.0
         with:
           files: 'out/apps.json'
+      
+      - name: Save lastGenerated.json
+        if: steps.check_file.outputs.files_exists == 'true'
+        uses: actions/cache/save@v3
+        with:
+          path: cache/lastGenerated.json
+          key: lastGenerated-${{ hashFiles('cache/lastGenerated.json') }}
 
       - name: Get the new version and build number
         id: json_properties
