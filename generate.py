@@ -17,6 +17,9 @@ EXTRACT_TO = os.getenv("EXTRACT_TO")
 OUTPUT_TO = os.getenv("OUTPUT_TO")
 CACHE_TO = os.getenv("CACHE_TO")
 
+# Take the BASE_URL, get just the host without any path, then reverse the order of the parts seperated by periods to become SOURCE_IDENTIFIER
+SOURCE_IDENTIFIER = '.'.join(BASE_URL.split('/')[2].split('.')[::-1])
+
 # Create EXTRACT_TO folder
 if not os.path.exists(EXTRACT_TO):
   os.makedirs(EXTRACT_TO)
@@ -47,8 +50,8 @@ else:
 # AltStore source construction
 source = {}
 source['name'] = 'Vendetta'
-source['identifier'] = 'tf.k6.discord'
-source['subtitle'] = 'A mod for Discord\'s mobile apps. This source is auto-generated with Python and GitHub Actions.'
+source['identifier'] = SOURCE_IDENTIFIER
+source['subtitle'] = 'A mod for Discord\'s mobile apps. This source is auto-generated.'
 source['iconURL'] = 'https://taidums.are-really.cool/pTgBemx.png'
 source['website'] = 'https://github.com/burritosoftware/vendetta-altsource'
 source['tintColor'] = '#3ab8ba'
@@ -60,7 +63,7 @@ vendettaApp = {
   "bundleIdentifier": "com.hammerandchisel.discord",
   "developerName": "Vendetta Contributors",
   "subtitle": "A mod for Discord's mobile apps.",
-  "localizedDescription": "A platform-agnostic mod for Discord's mobile apps. IPAs are sourced from https://patched.vendetta.rocks/ios.",
+  "localizedDescription": f"A platform-agnostic mod for Discord's mobile apps. IPAs are sourced from {BASE_URL}.",
   "iconURL": "https://taidums.are-really.cool/6gu8GwW.png",
   "tintColor": "#3ab8ba"
 }
@@ -111,23 +114,19 @@ vendettaApp['appPermissions'] = {}
 vendettaApp['appPermissions']['entitlements'] = []
 
 for entitlement in getEntitlements(f'{EXTRACT_TO}/Payload/{BINARY_KEY}.app/{BINARY_KEY}'):
-  entitlementObject = {
-    "name": entitlement
-  }
-  vendettaApp['appPermissions']['entitlements'].append(entitlementObject)
+  # Add entitlement to the entitlements array
+  vendettaApp['appPermissions']['entitlements'].append(entitlement)
 
-vendettaApp['appPermissions']['privacy'] = []
+vendettaApp['appPermissions']['privacy'] = {}
 
 for key, value in plist.items():
     # Check if the key starts with "NS" and ends with "UsageDescription"
     if key.startswith("NS") and key.endswith("UsageDescription"):
       # Get the name of the permission by removing the "NS" and "UsageDescription" parts
       permissionName = key[2:-16]
-      privacyObject = {
-        "name": permissionName,
-        "usageDescription": value
-      }
-      vendettaApp['appPermissions']['privacy'].append(privacyObject)
+      # Add key-value pairs to the privacy object with the permission name being the key and the value being the value
+      vendettaApp['appPermissions']['privacy'][permissionName] = value
+      
 
 # Add vendettaApp to the source
 source['apps'].append(vendettaApp)
