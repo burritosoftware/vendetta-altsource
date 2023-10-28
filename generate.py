@@ -122,10 +122,8 @@ vendettaApp['appPermissions']['privacy'] = {}
 for key, value in plist.items():
     # Check if the key starts with "NS" and ends with "UsageDescription"
     if key.startswith("NS") and key.endswith("UsageDescription"):
-      # Get the name of the permission by removing the "NS" and "UsageDescription" parts
-      permissionName = key[2:-16]
       # Add key-value pairs to the privacy object with the permission name being the key and the value being the value
-      vendettaApp['appPermissions']['privacy'][permissionName] = value
+      vendettaApp['appPermissions']['privacy'][key] = value
       
 
 # Add vendettaApp to the source
